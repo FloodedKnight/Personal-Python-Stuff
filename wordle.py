@@ -1,5 +1,7 @@
 import random
 
+# Words list are chatgptd
+
 words_1 = (
     "Abide", "Adept", "Adore", "Agent", "Alibi",
     "Alive", "Alpha", "Amend", "Angel", "Angle",
@@ -126,13 +128,17 @@ attempts = 0
 valid_letters = "abcdefghijklmnopqrstuvwxyz".upper()
 
 while True:
+    flag = False
     PlayersGuess = input("Guess the 5-letter word: ").upper()
+
+    for char in PlayersGuess:
+        if (char in valid_letters) == False:
+            print("You're using invalid letters! Try again.")
+            flag = True
+            break
     if PlayersGuess == TheWord:
         print("Congrats! You guessed the word " + TheWord.title() + " correctly!")
         break
-    
-    elif [i in valid_letters for i in [char for char in PlayersGuess]] == False:
-        print("You're using invalid letters! Try again.")
 
     elif attempts >= 4.9:
         print("You ran out of tries D: The word was " + TheWord.title() + "...")    
@@ -140,7 +146,7 @@ while True:
     elif len(PlayersGuess) != 5:
         print("You can only guess 5 letter words!")
 
-    else:
+    elif flag == False:
         attempts += 1
         print("")
         for i in range(5):
